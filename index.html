@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura | Portfólio Etec Darcy Pereira</title>
+    
+    <link rel="icon" href="imagens/aurabranco.jpg" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* Cores e Fontes */
+        :root {
+            /* Tema Claro (Padrão) */
+            --cor-principal: #8e44ad; /* Roxo principal */
+            --cor-secundaria: #6c3a88; /* Roxo mais escuro para títulos/texto secundário */
+            --cor-fundo: #ecf0f1; /* Cinza claro */
+            --cor-texto: #333;
+            --cor-texto-claro: #fff;
+            --cor-card-fundo: #fff; /* Fundo dos cards */
+            --cor-borda-card: #ddd; /* Borda da imagem do card */
+            --sombra-caixa: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --transicao-suave: all 0.3s ease-in-out;
+            --transicao-rapida: all 0.2s ease-out;
+            --cor-raio: #8e44ad;
+            --cor-raio-hover: #7f379f;
+            /* Para o placeholder no modo claro, obter as cores em RGB */
+            --cor-texto-rgb: 51, 51, 51; /* RGB de #333 */
+            --cor-principal-rgb: 142, 68, 173; /* RGB de #8e44ad */ 
+            /* Cores específicas para a Equação */
+            --cor-icone-cerebro: #3498db; /* Azul para Tecnologia */
+            --cor-icone-coracao: #e74c3c; /* Vermelho para Design */
+            --cor-texto-alma: var(--cor-principal); /* Roxo para Alma */
+            --cor-fundo-equacao: #f8f8f8; /* Fundo suave para a seção */
+            --sombra-equacao: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        /* Tema Escuro */
+        body.dark-mode {
+            --cor-principal: #bb86fc; /* Roxo claro para destaque no escuro */
+            --cor-secundaria: #03dac6; /* Ciano para títulos/texto secundário no escuro */
+            --cor-fundo: #121212; /* Fundo muito escuro */
+            --cor-texto: #e0e0e0; /* Texto claro */
+            --cor-texto-claro: #121212; /* Para elementos que precisam ser escuros no dark mode (ex: texto dentro do botão) */
+            --cor-card-fundo: #1e1e1e; /* Fundo dos cards mais escuro */
+            --cor-borda-card: #333; /* Borda da imagem do card mais escura */
+            --sombra-caixa: 0 4px 15px rgba(0, 0, 0, 0.4);
+            --cor-raio: #bb86fc;
+            --cor-raio-hover: #9c68ea;
+            /* Para o placeholder no modo escuro, obter as cores em RGB */
+            --cor-texto-rgb: 224, 224, 224; /* RGB de #e0e0e0 */
+            --cor-principal-rgb: 187, 134, 252; /* RGB de #bb86fc */ 
+            /* Cores específicas para a Equação no Dark Mode */
+            --cor-icone-cerebro: #64b5f6; /* Azul mais claro */
+            --cor-icone-coracao: #ff8a80; /* Vermelho mais claro */
+            --cor-texto-alma: var(--cor-principal);
+            --cor-fundo-equacao: #1c1c1c; /* Fundo escuro para a seção */
+            --sombra-equacao: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Estilos Globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            padding-top: 110px; /* Mantém o espaço para o cabeçalho fixo em desktop */
+            transition: background-color var(--transicao-suave), color var(--transicao-suave); /* Transição para as cores de fundo e texto */
+        }
+
+        /* Cursor padrão "pointer" para elementos clicáveis */
+        a, button, .project-card, .theme-toggle, .login-button { 
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Cabeçalho Fixo */
+        .header {
+            background-color: var(--cor-card-fundo); 
+            box-shadow: var(--sombra-caixa);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            text-align: center;
+            transition: var(--transicao-suave);
+        }
+
+        .header.scrolled {
+            padding: 8px 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px; 
+            position: relative;
+        }
+
+        /* Estilo para o botão de Login e Toggle de Tema */
+        .header-actions { 
+            position: absolute;
+            right: 20px;
+            display: flex; 
+            gap: 15px;
+        }
+
+        .theme-toggle, .login-button {
+            font-size: 1.8rem;
+            color: var(--cor-principal);
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px; 
+            height: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .theme-toggle:hover, .login-button:hover {
+            color: var(--cor-raio-hover);
+            transform: scale(1.1);
+        }
+
+        .header-content .logo.aura {
+            height: 100px;
+        }
+        .header-content .logo.etec {
+            height: 70px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 100px;
+            }
+            .header-content {
+                gap: 10px;
+            }
+            .header-content .logo.aura {
+                height: 70px;
+            }
+            .header-content .logo.etec {
+                height: 45px;
+            }
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            .header p {
+                font-size: 0.75rem;
+            }
+            .header-actions {
+                right: 15px;
+                gap: 10px;
+            }
+            .theme-toggle, .login-button {
+                font-size: 1.5rem;
+                width: 35px;
+                height: 35px;
+            }
+
+            /* Responsividade para a Equação */
+            .equation-section .equation-item {
+                flex-basis: 100%; /* Cada item em uma linha */
+                margin-bottom: 25px; /* Espaço entre eles */
+            }
+            .equation-section .plus-sign, .equation-section .equals-sign {
+                display: none; /* Esconde os sinais em mobile */
+            }
+            .equation-section .equation-item:last-child {
+                margin-bottom: 0;
+            }
+            .equation-section .equation-item h3 {
+                font-size: 1.2rem; /* Texto menor */
+            }
+            .equation-section .equation-item i {
+                font-size: 2.5rem; /* Ícone menor */
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: 85px;
+            }
+            .header {
+                padding: 8px 0;
+            }
+            .header-content {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .header-content .logo.aura {
+                height: 55px;
+            }
+            .header-content .logo.etec {
+                height: 35px;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            .header p {
+                font-size: 0.7rem;
+            }
+            .header-actions {
+                right: 10px;
+                gap: 8px;
+            }
+            .theme-toggle, .login-button {
+                font-size: 1.3rem;
+                width: 30px;
+                height: 30px;
+            }
+            .equation-section {
+                padding: 30px 0;
+            }
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: var(--cor-principal);
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .header-content h1 span {
+            display: none; 
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            max-width: 600px;
+            margin: 10px auto 0;
+            color: var(--cor-secundaria);
+            font-weight: 400;
+        }
+
+        /* Seção de Projetos */
+        .portfolio-section {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .portfolio-section h2 {
+            font-size: 2.5rem;
+            color: var(--cor-secundaria);
+            margin-bottom: 50px;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .portfolio-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--cor-principal);
+            border-radius: 5px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .project-card {
+            background-color: var(--cor-card-fundo); 
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--sombra-caixa);
+            transition: var(--transicao-suave);
+            text-align: left;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--cor-principal);
+        }
+        body.dark-mode .project-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-card:focus-within {
+            border-color: var(--cor-principal);
+            box-shadow: 0 0 0 3px rgba(var(--cor-principal-rgb), 0.5); 
+            outline: none;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--cor-borda-card);
+        }
+
+        .project-info {
+            padding: 25px;
+        }
+
+        .project-info h3 {
+            font-size: 1.5rem;
+            color: var(--cor-secundaria);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .project-info p {
+            font-size: 1rem;
+            color: var(--cor-texto); 
+            margin-bottom: 20px;
+        }
+
+        .project-link {
+            display: inline-block;
+            background-color: var(--cor-principal);
+            color: var(--cor-texto-claro);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transicao-rapida);
+            white-space: nowrap;
+        }
+        
+        .project-link:hover {
+            background-color: var(--cor-raio-hover);
+            transform: translateY(-2px);
+        }
+
+        .project-link.disabled {
+            background-color: #bdc3c7 !important;
+            cursor: not-allowed !important;
+            opacity: 0.8;
+            transform: none !important;
+        }
+        .project-link.disabled:hover {
+            background-color: #bdc3c7 !important;
+        }
+
+        /* Rodapé */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--cor-borda-card);
+            color: var(--cor-texto);
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Animação para cards de projeto */
+        .project-card.animate {
+            animation: fadeInSlideUp 0.8s ease-out forwards;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Estilos dos Modais (Pop-up) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        body.dark-mode .modal {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal.show {
+            opacity: 1;
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--cor-card-fundo);
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--sombra-caixa);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .close-button {
+            color: var(--cor-secundaria);
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: var(--cor-principal);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-content h3 {
+            color: var(--cor-secundaria);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--cor-secundaria);
+            font-weight: 600;
+        }
+
+        .modal-content input[type="text"],
+        .modal-content textarea,
+        .modal-content input[type="number"] { 
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--cor-borda-card);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.2s ease-in-out;
+            background-color: var(--cor-fundo); 
+            color: var(--cor-texto);
+        }
+        /* Ajuste do placeholder */
+        .modal-content input::placeholder,
+        .modal-content textarea::placeholder {
+            color: rgba(var(--cor-texto-rgb), 0.7);
+            opacity: 1;
+        }
+
+
+        .modal-content input[type="text"]:focus,
+        .modal-content textarea:focus,
+        .modal-content input[type="number"]:focus {
+            border-color: var(--cor-principal);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(var(--cor-principal-rgb), 0.2);
+        }
+
+        .modal-content textarea {
+            resize: vertical;
+            min-height: 80px;
+            max-height: 150px;
+        }
+
+        .modal-content button {
+            background-color: var(--cor-principal);
+            color: var(--cor-texto-claro);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transicao-rapida);
+            width: 100%;
+        }
+
+        .modal-content button:hover {
+            background-color: var(--cor-raio-hover);
+            transform: translateY(-2px);
+        }
+        /* Cor de clique do botão */
+        .modal-content button:active {
+            background-color: var(--cor-raio-hover);
+            transform: translateY(0);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* --- Início: Melhorias de Responsividade para Mobile (Max-width 600px) --- */
+        @media (max-width: 600px) {
+            body {
+                padding-top: 100px;
+            }
+
+            .portfolio-section {
+                padding: 30px 0; 
+                padding-top: 100px; 
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr; 
+                gap: 20px; 
+            }
+
+            .project-card {
+                padding: 0; 
+                text-align: center;
+            }
+
+            .project-card img {
+                height: 180px;
+                border-radius: 15px 15px 0 0;
+            }
+
+            .project-info {
+                padding: 15px;
+            }
+
+            .project-info h3 {
+                font-size: 1.3rem;
+                margin-bottom: 5px;
+            }
+
+            .project-info p {
+                font-size: 0.9rem;
+                max-height: 3em; 
+                overflow: hidden; 
+                text-overflow: ellipsis;
+                white-space: normal;
+                margin-bottom: 10px;
+                transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+                opacity: 1;
+            }
+
+            .project-card .project-link {
+                display: none;
+                margin-top: 15px;
+                opacity: 0;
+                transition: opacity 0.3s ease-out;
+            }
+
+            .project-card.expanded {
+                max-height: none; 
+            }
+
+            .project-card.expanded .project-info p {
+                max-height: none; 
+                overflow: visible;
+                text-overflow: clip;
+                opacity: 1;
+            }
+
+            .project-card.expanded .project-link {
+                display: inline-block;
+                opacity: 1;
+            }
+
+            .add-new-project-card .project-info p {
+                max-height: none;
+                overflow: visible;
+                text-overflow: clip;
+            }
+            .add-new-project-card .project-link {
+                display: inline-block;
+                opacity: 1;
+            }
+        }
+        /* --- Fim: Melhorias de Responsividade para Mobile --- */
+
+        /* --- Início: Estilos para a Seção da Equação --- */
+        .equation-section {
+            background-color: var(--cor-fundo-equacao);
+            padding: 80px 0;
+            text-align: center;
+            box-shadow: var(--sombra-equacao);
+            margin-top: 60px; /* Espaço entre a grade de projetos e a equação */
+            border-top: 1px solid var(--cor-borda-card);
+            border-bottom: 1px solid var(--cor-borda-card);
+            transition: var(--transicao-suave); /* Transição de cores de fundo e sombra */
+        }
+
+        .equation-section h2 {
+            font-size: 2.5rem;
+            color: var(--cor-secundaria);
+            margin-bottom: 50px;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .equation-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--cor-principal);
+            border-radius: 5px;
+        }
+
+        .equation-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Permite que os itens quebrem linha em telas pequenas */
+            gap: 30px; /* Espaçamento entre os elementos da equação */
+        }
+
+        .equation-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--cor-card-fundo);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--sombra-caixa);
+            min-width: 200px; /* Garante um tamanho mínimo para cada item */
+            transition: var(--transicao-suave);
+            flex: 1; /* Permite que os itens cresçam para preencher o espaço */
+            max-width: 280px; /* Limita o tamanho máximo para não ficarem muito grandes em desktop */
+        }
+
+        body.dark-mode .equation-item {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .equation-item i {
+            font-size: 4rem; /* Tamanho grande para os ícones */
+            margin-bottom: 15px;
+            line-height: 1; /* Garante que o ícone não adicione altura extra */
+            transition: color 0.3s ease;
+        }
+
+        .equation-item h3 {
+            font-size: 1.5rem;
+            color: var(--cor-secundaria);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* Cores específicas dos ícones */
+        .equation-item.brain i {
+            color: var(--cor-icone-cerebro);
+        }
+        .equation-item.heart i {
+            color: var(--cor-icone-coracao);
+        }
+        .equation-item.soul i {
+            color: var(--cor-texto-alma);
+        }
+        body.dark-mode .equation-item.soul i {
+            color: var(--cor-secundaria); /* Usa o ciano para a alma no dark mode para um destaque diferente */
+        }
+
+
+        .plus-sign, .equals-sign {
+            font-size: 3.5rem; /* Tamanho dos sinais de operação */
+            color: var(--cor-principal);
+            font-weight: 700;
+            margin: 0 20px;
+            line-height: 1;
+            transition: color var(--transicao-suave);
+        }
+
+        /* Animação de entrada para a seção da equação */
+        .equation-section.animate .equation-item,
+        .equation-section.animate .plus-sign,
+        .equation-section.animate .equals-sign {
+            animation: fadeInScaleUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        /* Delay para cada item da equação */
+        .equation-section.animate .equation-item:nth-child(1) { animation-delay: 0.1s; }
+        .equation-section.animate .plus-sign:nth-child(2) { animation-delay: 0.3s; }
+        .equation-section.animate .equation-item:nth-child(3) { animation-delay: 0.5s; }
+        .equation-section.animate .equals-sign:nth-child(4) { animation-delay: 0.7s; }
+        .equation-section.animate .equation-item:nth-child(5) { animation-delay: 0.9s; }
+
+
+        @keyframes fadeInScaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Transição para a seção inteira ao mudar o tema */
+        .equation-section {
+            transition: background-color var(--transicao-suave), box-shadow var(--transicao-suave), border-color var(--transicao-suave);
+        }
+        /* --- Fim: Estilos para a Seção da Equação --- */
+    </style>
+</head>
+<body>
+
+    <header class="header" id="home">
+        <div class="container">
+            <div class="header-content">
+                <img src="logo (1).png" alt="Logo da Aura" class="logo aura">
+                
+
+                <img src="https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/90/2024/03/etec-darcy_pereira_de_moraes.png" alt="Logo da Etec Darcy Pereira" class="logo etec">
+
+                <div class="header-actions">
+                    <button id="loginBtn" class="login-button" aria-label="Abrir formulário de login">
+                        <i class="fas fa-user-circle"></i> </button>
+                    <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema claro/escuro">
+                        <i class="fas fa-sun"></i> </button>
+                </div>
+            </div>
+            <p>Conheça os projetos incríveis que criamos para a Etec Darcy Pereira.</p>
+        </div>
+    </header>
+
+    <main class="portfolio-section" id="portfolio">
+        <div class="container">
+            <h2>Nossos Projetos</h2>
+            <div class="project-grid" id="projectGrid">
+                <div class="project-card">
+                    <img src="https://www.radiojornalsaomiguel.com.br/wp-content/uploads/2021/09/achados-e-perdidos.jpg" alt="Imagem do projeto de Achados e Perdidos">
+                    <div class="project-info">
+                        <h3>Achados e Perdidos</h3>
+                        <p>Plataforma para facilitar a busca e devolução de itens perdidos dentro da escola, conectando alunos e funcionários.</p>
+                        <a href="https://joaofer10.github.io/aura2/" class="project-link" target="_blank" aria-label="Acessar Projeto Achados e Perdidos">Ver Projeto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="equation-section">
+        <div class="container">
+            <h2>Nossa Filosofia</h2>
+            <div class="equation-container">
+                <div class="equation-item brain">
+                    <i class="fas fa-brain"></i>
+                    <h3>Cérebro</h3>
+                    <p>Tecnologia</p>
+                </div>
+                <span class="plus-sign">+</span>
+                <div class="equation-item heart">
+                    <i class="fas fa-heart"></i>
+                    <h3>Coração</h3>
+                    <p>Design</p>
+                </div>
+                <span class="equals-sign">=</span>
+                <div class="equation-item soul">
+                    <i class="fas fa-star"></i>
+                    <h3>Alma</h3>
+                    <p>Impacto e Inovação</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Aura Dev. Todos os direitos reservados. Feito com ❤️ para a Etec Darcy Pereira.</p>
+        </div>
+    </footer>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Adicionar Novo Projeto</h3>
+            <form id="newProjectForm">
+                <label for="projectTitle">Título do Projeto:</label>
+                <input type="text" id="projectTitle" placeholder="Ex: Sistema de Biblioteca">
+
+                <label for="projectUrl">URL do Projeto:</label>
+                <input type="text" id="projectUrl" placeholder="Ex: https://seusite.com/biblioteca">
+
+                <label for="projectImageUrl">URL da Imagem do Projeto:</label>
+                <input type="text" id="projectImageUrl" placeholder="Ex: imagens/seu-projeto.jpg ou https://exemplo.com/imagem.png">
+
+                <label for="projectDescription">Descrição Breve:</label>
+                <textarea id="projectDescription" placeholder="Descreva o objetivo do projeto..."></textarea>
+
+                <button type="submit">Adicionar Projeto</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeLoginModal">&times;</span>
+            <h3>Login</h3>
+            <form id="loginForm">
+                <label for="loginName">Nome:</label>
+                <input type="text" id="loginName" placeholder="Seu nome" required>
+
+                <label for="loginRm">RM:</label>
+                <input type="number" id="loginRm" placeholder="Seu RM (5 dígitos)" required pattern="\d{5}" title="RM deve ter exatamente 5 números">
+
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth Scroll para links internos (ainda funciona para a navegação normal, caso tenha)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Animação de entrada para os cards de projeto (Intersection Observer)
+            const projectCards = document.querySelectorAll('.project-card');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+
+            // Observa os cards existentes na carga inicial
+            projectCards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // Efeito de encolhimento do header (mantido)
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Lógica do Modal para Adicionar Novo Projeto
+            const addProjectBtn = document.getElementById('addProjectBtn');
+            const projectModal = document.getElementById('projectModal');
+            const closeProjectModalBtn = projectModal.querySelector('.close-button');
+            const newProjectForm = document.getElementById('newProjectForm');
+            const projectGrid = document.getElementById('projectGrid');
+
+            addProjectBtn.addEventListener('click', () => {
+                projectModal.style.display = 'flex';
+                setTimeout(() => projectModal.classList.add('show'), 10);
+            });
+
+            closeProjectModalBtn.addEventListener('click', () => {
+                projectModal.classList.remove('show');
+                setTimeout(() => {
+                    projectModal.style.display = 'none';
+                    newProjectForm.reset();
+                }, 300);
+            });
+
+            // Lógica do Modal de Login
+            const loginBtn = document.getElementById('loginBtn');
+            const loginModal = document.getElementById('loginModal');
+            const closeLoginModalBtn = document.getElementById('closeLoginModal');
+            const loginForm = document.getElementById('loginForm');
+
+            loginBtn.addEventListener('click', () => {
+                loginModal.style.display = 'flex';
+                setTimeout(() => loginModal.classList.add('show'), 10);
+            });
+
+            closeLoginModalBtn.addEventListener('click', () => {
+                loginModal.classList.remove('show');
+                setTimeout(() => {
+                    loginModal.style.display = 'none';
+                    loginForm.reset();
+                }, 300);
+            });
+
+            // Fechar modais ao clicar fora deles
+            window.addEventListener('click', (event) => {
+                if (event.target == projectModal) {
+                    projectModal.classList.remove('show');
+                    setTimeout(() => {
+                        projectModal.style.display = 'none';
+                        newProjectForm.reset();
+                    }, 300);
+                }
+                if (event.target == loginModal) {
+                    loginModal.classList.remove('show');
+                    setTimeout(() => {
+                        loginModal.style.display = 'none';
+                        loginForm.reset();
+                    }, 300);
+                }
+            });
+
+            newProjectForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const title = document.getElementById('projectTitle').value.trim();
+                const url = document.getElementById('projectUrl').value.trim();
+                const imageUrl = document.getElementById('projectImageUrl').value.trim(); 
+                const description = document.getElementById('projectDescription').value.trim();
+
+                if (!title || !url || !imageUrl || !description) { 
+                    alert('Por favor, preencha todos os campos do projeto!');
+                    return;
+                }
+
+                const newProjectCard = document.createElement('div');
+                newProjectCard.classList.add('project-card');
+                
+                const linkClass = url ? "" : "disabled";
+                const linkHref = url ? url : "#";
+                const linkText = url ? "Acessar Site" : "Em Desenvolvimento";
+
+                newProjectCard.innerHTML = `
+                    <img src="${imageUrl}" alt="Imagem do projeto ${title}">
+                    <div class="project-info">
+                        <h3>${title}</h3>
+                        <p>${description}</p>
+                        <a href="${linkHref}" class="project-link ${linkClass}" ${url ? 'target="_blank"' : ''} aria-label="${url ? 'Acessar Projeto ' + title : 'Projeto em desenvolvimento'}">${linkText}</a>
+                    </div>
+                `;
+
+                const addNewProjectCard = document.querySelector('.add-new-project-card');
+                projectGrid.insertBefore(newProjectCard, addNewProjectCard);
+
+                setTimeout(() => newProjectCard.classList.add('animate'), 50); 
+                
+                observer.observe(newProjectCard); 
+
+                if (window.innerWidth <= 600) {
+                    newProjectCard.addEventListener('click', toggleProjectCardExpansion);
+                }
+
+                projectModal.classList.remove('show');
+                setTimeout(() => {
+                    projectModal.style.display = 'none';
+                    newProjectForm.reset();
+                }, 300);
+                
+                alert('Projeto "' + title + '" adicionado com sucesso!');
+            });
+
+            // Lógica do Formulário de Login
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('loginName').value.trim();
+                const rm = document.getElementById('loginRm').value.trim();
+
+                if (!/^\d{5}$/.test(rm)) {
+                    alert('O RM deve conter exatamente 5 números.');
+                    return;
+                }
+
+                if (name === '') {
+                    alert('Por favor, digite seu nome.');
+                    return;
+                }
+
+                alert('Login realizado com sucesso!\nNome: ${name}\nRM: ${rm}');
+
+                loginModal.classList.remove('show');
+                setTimeout(() => {
+                    loginModal.style.display = 'none';
+                    loginForm.reset();
+                }, 300);
+            });
+
+
+            // Função para alternar a classe 'expanded' nos cards
+            function toggleProjectCardExpansion(event) {
+                if (event.target.closest('.project-link') || event.target.tagName === 'BUTTON') {
+                    return; 
+                }
+                if (this.classList.contains('add-new-project-card')) {
+                    return;
+                }
+                this.classList.toggle('expanded');
+            }
+
+            function setupCardClickListeners() {
+                document.querySelectorAll('.project-card:not(.add-new-project-card)').forEach(card => {
+                    card.removeEventListener('click', toggleProjectCardExpansion);
+                    if (window.innerWidth <= 600) {
+                        card.addEventListener('click', toggleProjectCardExpansion);
+                        card.classList.remove('expanded');
+                    } else {
+                        card.classList.remove('expanded');
+                    }
+                });
+            }
+            setupCardClickListeners();
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    setupCardClickListeners();
+                }, 250);
+            });
+
+            /* --- Lógica para o Tema Claro/Escuro --- */
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const body = document.body;
+
+            function applyTheme(isDarkMode) {
+                if (isDarkMode) {
+                    body.classList.add('dark-mode');
+                    themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                    themeToggleBtn.setAttribute('aria-label', 'Alternar para tema claro');
+                } else {
+                    body.classList.remove('dark-mode');
+                    themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                    themeToggleBtn.setAttribute('aria-label', 'Alternar para tema escuro');
+                }
+            }
+
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark') {
+                applyTheme(true);
+            } else if (savedTheme === 'light') {
+                applyTheme(false);
+            } else if (prefersDarkScheme) {
+                applyTheme(true);
+            } else {
+                applyTheme(false);
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                const isDarkMode = body.classList.contains('dark-mode');
+                applyTheme(!isDarkMode);
+                localStorage.setItem('theme', isDarkMode ? 'light' : 'dark');
+            });
+            /* --- Fim: Lógica para o Tema Claro/Escuro --- */
+
+            // NOVO: Animação para a seção da Equação
+            const equationSection = document.querySelector('.equation-section');
+            const equationObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        equationSection.classList.add('animate');
+                        observer.unobserve(equationSection); // Para animar apenas uma vez
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3 // Ajuste conforme a visibilidade necessária para disparar
+            });
+
+            equationObserver.observe(equationSection);
+        });
+    </script>
+</body>
+</html>
